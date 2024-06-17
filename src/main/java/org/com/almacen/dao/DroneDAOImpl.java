@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DroneDAOImpl implements DroneDao {
+public class DroneDAOImpl implements DroneDAO {
 
     private Connection conn;
 
