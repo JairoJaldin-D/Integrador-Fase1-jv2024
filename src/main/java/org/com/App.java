@@ -34,13 +34,14 @@ public class App {
                     String codigo = scanner.nextLine();
                     System.out.println("Ingrese descripcion:");
                     String descripcion = scanner.nextLine();
+                    System.out.println("Ingrese tipo de drone (recreacion, fotografia , carreras, militar, agricultura, Entrega):");
+                    String tipo = scanner.nextLine();
                     System.out.println("Ingrese precio de Venta:");
                     double precio = scanner.nextDouble();
                     System.out.println("Ingrese stock:");
                     int stock = scanner.nextInt();
-                    droneService.agregarDrone(new Drone(codigo, descripcion, precio, stock));
+                    droneService.agregarDrone(new Drone(codigo, descripcion, tipo, precio, stock));
                     break;
-
                 case 2:
                     System.out.println("Ingrese codigo:");
                     codigo = scanner.nextLine();
@@ -48,7 +49,6 @@ public class App {
                     int cantidadInc = scanner.nextInt();
                     droneService.incrementarStock(codigo, cantidadInc);
                     break;
-
                 case 3:
                     System.out.println("Ingrese codigo:");
                     codigo = scanner.nextLine();
@@ -56,35 +56,31 @@ public class App {
                     int cantidadDec = scanner.nextInt();
                     droneService.decrementarStock(codigo,cantidadDec);
                     break;
-
                 case 4:
-                    System.out.println("Ingrese codigo: ");
+                    System.out.println("Ingrese codigo:");
                     codigo = scanner.nextLine();
                     System.out.println("Ingrese nuevo precio:");
                     precio = scanner.nextDouble();
                     droneService.actualizarPrecio(codigo,precio);
                     break;
-
                 case 5:
+                    System.out.println("\nIngrese tipo de drone a listar (o 'Todos' para listar todos):");
+                    String tipoFiltro = scanner.nextLine();
                     List<Drone> drones = droneService.listarDrones();
-
-                    for(Drone drone: drones){
-                        System.out.println(drone);
+                    for (Drone drone : drones) {
+                        if (tipoFiltro.equalsIgnoreCase("Todos") || drone.getTipo().equalsIgnoreCase(tipoFiltro)) {
+                            System.out.println(drone);
+                        }
                     }
                     break;
-
                 case 6:
                     System.out.println("Saliendo...");
                     break;
-
                 default:
                     System.out.println("Opcion no valida.");
+
             }
         }
-
         scanner.close();
-
-        
-
     }
 }

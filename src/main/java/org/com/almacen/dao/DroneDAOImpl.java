@@ -19,29 +19,30 @@ public class DroneDAOImpl implements DroneDAO {
     @Override
     public void agregarDrone(Drone drone) {
         try {
-            String query = "INSERT INTO drones (codigo, descripcion, precioVenta, stock) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO drones (codigo, descripcion,tipo, precioVenta, stock) VALUES (?, ?, ?, ?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, drone.getCodigo());
             ps.setString(2, drone.getDescripcion());
-            ps.setDouble(3, drone.getPrecioVenta());
-            ps.setInt(4, drone.getStock());
+            ps.setString(3, drone.getTipo());
+            ps.setDouble(4, drone.getPrecioVenta());
+            ps.setInt(5, drone.getStock());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public void actualizarDrone(Drone drone) {
 
         try{
-            String query = "UPDATE drones SET descripcion = ?, precioVenta = ?, stock = ? WHERE codigo = ?";
+            String query = "UPDATE drones SET descripcion = ?, tipo = ? , precioVenta = ?, stock = ? WHERE codigo = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, drone.getDescripcion());
-            ps.setDouble(2, drone.getPrecioVenta());
-            ps.setInt(3, drone.getStock());
-            ps.setString(4, drone.getCodigo());
+            ps.setString(2,drone.getTipo());
+            ps.setDouble(3, drone.getPrecioVenta());
+            ps.setInt(4, drone.getStock());
+            ps.setString(5, drone.getCodigo());
             ps.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
@@ -73,6 +74,7 @@ public class DroneDAOImpl implements DroneDAO {
                 drone = new Drone(
                         rs.getString("codigo"),
                         rs.getString("descripcion"),
+                        rs.getString("tipo"),
                         rs.getDouble("precioVenta"),
                         rs.getInt("stock")
                 );
@@ -94,6 +96,7 @@ public class DroneDAOImpl implements DroneDAO {
                 Drone drone = new Drone(
                         rs.getString("codigo"),
                         rs.getString("descripcion"),
+                        rs.getString("tipo"),
                         rs.getDouble("precioVenta"),
                         rs.getInt("stock")
                 );
